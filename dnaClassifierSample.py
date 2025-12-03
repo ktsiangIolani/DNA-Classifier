@@ -9,7 +9,6 @@ import plotly.express as px
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import tensorflow as tf
-import matplotlib.pyplot as plt
 
 # read in our data
 print(tf.__version__)
