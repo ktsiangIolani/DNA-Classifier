@@ -10,10 +10,11 @@ from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import tensorflow as tf
 
+print("Hellooooo!")
 # read in our data
 print(tf.__version__)
-data = pd.read_csv('classifcation_and_seqs_aln.csv')
-print(data.head())
+data = pd.read_csv('all_classifcation_and_seqs_aln.csv')
+print(data)
 
 # Encode our data into numbers
 speciesEncoder = LabelEncoder()
