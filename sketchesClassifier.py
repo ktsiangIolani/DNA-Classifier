@@ -74,14 +74,19 @@ data['labels'] = encoder.fit_transform(data['labels'])
 print(data.sample(20))
 
 y = data['labels']
-X = all
+X = all.reshape(-1, 28, 28, 1)
 
 model = keras.Sequential([
-    layers.Dense(units=128, input_shape=[784]),
-    layers.Dropout(0.2),
+     layers.Conv2D(32, (3, 3), activation='relu'),
+    layers.MaxPooling2D(2, 2),
+
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(2, 2),
+
+    layers.Flatten(),
     layers.Dense(units=50, activation='relu', 
                  kernel_regularizer=keras.regularizers.l2(0.001)),
-    layers.Dense(units=10, activation="softmax"),
+    layers.Dense(units=3, activation="softmax"),
 ])
 
 model.compile(
