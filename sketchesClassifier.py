@@ -81,7 +81,7 @@ model = keras.Sequential([
     layers.Dropout(0.2),
     layers.Dense(units=50, activation='relu', 
                  kernel_regularizer=keras.regularizers.l2(0.001)),
-    layers.Dense(units=10, activate="softmax"),
+    layers.Dense(units=10, activation="softmax"),
 ])
 
 model.compile(
