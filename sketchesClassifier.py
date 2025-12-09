@@ -45,23 +45,42 @@ print(imagesButterfly)
 
 #load third
 imagesCat = np.load("cat.npy")
-img2d = imagesButterfly[0].reshape(28, 28)
+img2d = imagesCat[0].reshape(28, 28)
 labelsC = np.full(imagesCat.shape[0], 'cat', dtype=object)
-print(imagesButterfly.shape)
 plt.figure()
 plt.imshow(img2d)
 plt.colorbar()
 plt.grid(False)
 # plt.show()
-print(imagesButterfly)
+
+#load fourth
+imagesBanana = np.load("banana.npy")
+img2d = imagesBanana[0].reshape(28, 28)
+labelsba = np.full(imagesBanana.shape[0], 'banana', dtype=object)
+plt.figure()
+plt.imshow(img2d)
+plt.colorbar()
+plt.grid(False)
+# plt.show()
+
+#load fifth
+bread = np.load("bread.npy")
+img2d = bread[0].reshape(28, 28)
+labelsbr = np.full(bread.shape[0], 'bread', dtype=object)
+plt.figure()
+plt.imshow(img2d)
+plt.colorbar()
+plt.grid(False)
+# plt.show()
+
 
 
 # now define our X and y
 
-all = np.vstack((imagesAirplane, imagesButterfly, imagesCat))
+all = np.vstack((imagesAirplane, imagesButterfly, imagesCat, imagesBanana, bread))
 print("HELLO", all.shape)
 
-y = np.concatenate((labelsA, labelsB, labelsC))
+y = np.concatenate((labelsA, labelsB, labelsC, labelsba, labelsbr))
 print("HELLO 2", y.shape)
 
 data = pd.DataFrame({
@@ -80,7 +99,7 @@ x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 model = keras.Sequential([
    # layers.Dense(units=50, input_shape=[784]),
-     layers.Conv2D(32, (3, 3), activation='relu'),
+    layers.Conv2D(32, (3, 3), activation='relu'),
     layers.MaxPooling2D(2, 2),
 
     layers.Conv2D(64, (3, 3), activation='relu'),
@@ -89,7 +108,9 @@ model = keras.Sequential([
     layers.Flatten(),
     layers.Dense(units=50, activation='relu', 
                  kernel_regularizer=keras.regularizers.l2(0.001)),
-    layers.Dense(units=3, activation="softmax"),
+    layers.Dropout(0.2),
+    layers.Dense(units=50, activation='relu'),
+    layers.Dense(units=5, activation="softmax"),
 ])
 
 model.compile(
@@ -102,7 +123,7 @@ model.compile(
 history = model.fit(
     x_train, y_train, 
     validation_data=(x_test,y_test),
-    epochs=40, # number of 'episodes' for forward and backprop
+    epochs=200, # number of 'episodes' for forward and backprop
     batch_size=64
  # how much data do we do at a time
 )
