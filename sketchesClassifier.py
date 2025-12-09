@@ -94,6 +94,7 @@ model.compile(
 history = model.fit(
     X, y, 
     epochs=40, # number of 'episodes' for forward and backprop
+    batch_size=32
  # how much data do we do at a time
 )
 
