@@ -76,7 +76,10 @@ print(data.sample(20))
 y = data['labels']
 X = all.reshape(-1, 28, 28, 1)
 
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
 model = keras.Sequential([
+   # layers.Dense(units=50, input_shape=[784]),
      layers.Conv2D(32, (3, 3), activation='relu'),
     layers.MaxPooling2D(2, 2),
 
@@ -97,13 +100,9 @@ model.compile(
 
 
 history = model.fit(
-    X, y, 
+    x_train, y_train, 
+    validation_data=(x_test,y_test),
     epochs=40, # number of 'episodes' for forward and backprop
     batch_size=64
  # how much data do we do at a time
 )
-
-
-df = pd.DataFrame(history.history)['loss']
-px.line(df).update_layout(xaxis_title="Epochs", yaxis_title="Loss").show()
-# now feed to NN
