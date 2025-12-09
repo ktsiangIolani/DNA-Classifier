@@ -13,5 +13,5 @@ import pandas_tfrecords as pdtfr
 
 print("hello starting...")
 
-df = pdtfr.tfrecords_to_pandas(file_paths='training.tfrecord-00000-of-00010')
+df = np.load("airplane.npy")
 print(df.head())
